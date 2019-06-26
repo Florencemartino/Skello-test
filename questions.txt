@@ -1,0 +1,105 @@
+BACKEND - Programming
+These can be done in any language you're comfortable with
+
+1. Give a regular expression that detects hexadecimal numbers in a text.
+For example, ‘0x0f4’, ‘0acdadecf822eeff32aca5830e438cb54aa722e3’, ‘8BADF00D’ should be detected.
+
+> Par définition, l'écriture hexadécimale est une conversion exprimée sur une base de 16. Les chiffres de 0 à 15 sont représentés par les nombres de 0 à 9, et les lettres majuscules de A à F. Ce qui s'exprimerait en Regex :
+
+/[0-9A-F]+/
+
+Dans les exemples donnés au-dessus, selon ma définition,  ‘0x0f4’ ne devrait pas être détecté car il contient 'x' et les lettres minuscules ne font pas partie de la base hexadécimale.
+Il en est de même pour l'exemple ‘0acdadecf822eeff32aca5830e438cb54aa722e3’ qui contient des minucules.
+
+
+2.Here is the pseudo code of a function that is defined recursively:
+-  f(0) = 1;
+-  f(1) = 3;
+-  f(n)= 3 * f(n-1) - f(n-2);
+Provide an implementation for ‘f’. Bonus points for a non recursive implementation.
+
+> int   ft_f(int n)
+{
+  if (n == 0)
+  {
+    return (0);
+  }
+  if (n == 1)
+  {
+    return (3);
+  }
+  return ( 3 * (ft_f(n - 1) - ft_f(n - 2)) );
+}
+
+BACKEND - MySQL
+
+1. Write a CREATE TABLE query for a table storing information on users. It will store:
+  - id,
+  - firstname,
+  - lastname,
+  - gender,
+  - email,
+  - created_at
+
+> Avec MySQL :
+
+  TIMESTAMP=`rake db:timestamp`
+
+  touch db/migrate/${TIMESTAMP}_create_users.rb
+
+  # db/migrate/**********_create_users.rb
+  class CreateUsers < ActiveRecord::Migration[5.1]
+    def change
+      create_table :users do |t|
+        t.string    :firstname
+        t.string    :lastname
+        t.string    :gender
+        t.string    :email
+        t.timestamps # add 2 columns, `created_at` and `updated_at`
+      end
+    end
+  end
+
+  rake db:migrate
+
+
+2. Write a query on the previous table that lists the 10 most recently added users.
+
+> SELECT * FROM users ORDER BY id DESC LIMIT 10
+
+GENERAL - Creativity
+Si vous êtes Français, vous pouvez répondre en Français.
+
+1. Describe the color yellow to someone who is blind
+
+> La couleur jaune, c'est la couleur que tu sens lorsque tu fermes les yeux au soleil, et que la chaleur vient réchauffer ton visage.
+La couleur jaune, c'est aussi la couleur que tu peux ressentir lorsque que tu entends de la batucada, ou des percussions africaines. C'est une couleur lisse, mais avec beaucoup d'energie.
+
+3. Describe the data model you’d use for a Battleship game. What are the key objects? How will your code use them?
+
+> Il y aurait un tableau à double entrée, afin de pouvoir dessiner le plateau de jeu, et ainsi pouvoir repérer les positions des bateaux.
+Par exemple :
+
+    0123456789
+  0 XXXXXXXXXX
+  1 XXXoooXXXX
+  2 XXXXXXXXoX
+  3 XXXXXXXXoX
+  4 XXXXXXXXoX
+  5 XXXXXXXXoX
+
+  Le premier model serait Boat :
+
+  table Boat:
+              t.integer  "x"
+              t.integer  "y"
+              t.integer  "length"
+
+
+ Le deuxième model serait Player :
+
+ table Player:
+                t.string "name"
+                t.string "grid"
+
+

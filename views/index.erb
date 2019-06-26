@@ -1,0 +1,32 @@
+<div class=container>
+
+  <div class="header">
+    <h4>Nos dernières actus :</h4>
+      <a href="/new_post" class="call-to-action">Nouveau post</a>
+  </div>
+
+  <div class="article-first">
+    <% if @database.last[:photo].nil? %>
+      <img src="https://www.jkhfindia.org/files/noimageavailable.png" width="530" height="380">
+    <% else %>
+      <img src="<%= @database.last[:photo] %>" width="530" height="380">
+    <% end %>
+    <h2> <%= @database.last[:title] %> </h2>
+      <a href="/<%= @database.last[:title] %>"> <%= @database.last[:content][0..80].gsub(/\s\w+$/,'...   Read more...') %></a>
+  </div>
+
+  <div class="rest-of-article" class="wraper">
+    <div class="single-article">
+      <% @database.each do |data| %>
+        <% if data[:photo].nil? %>
+          <img src="https://www.jkhfindia.org/files/noimageavailable.png" width="230" height="180">
+        <% else %>
+          <img src="<%= data[:photo] %>" width="230" height="180">
+        <% end %>
+          <h3> <%= data[:title] %> </h3>
+          <a href="/<%= data[:title] %>"> Read </a><hr>
+      <% end %>
+    <div>
+  </div>
+</div>
+
